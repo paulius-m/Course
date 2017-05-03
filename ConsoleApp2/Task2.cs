@@ -1,8 +1,9 @@
-﻿namespace ConsoleApp
+﻿
+namespace ConsoleApp2
 {
-    class Program
+    class Task2
     {
-        static void Main(string[] args)
+        static void Main1(string[] args)
         {
             string text = System.Console.ReadLine();
             string maybeNumber = System.Console.ReadLine();
