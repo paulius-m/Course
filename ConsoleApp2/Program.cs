@@ -7,66 +7,25 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Repository repo = new Repository();
+            IRepository repo = new Repository();
 
-            DisplayMenu();
-            int input;
-            input = int.Parse(System.Console.ReadLine());
+            IMenuItem[] subMenuItems = new IMenuItem[2];
+            subMenuItems[0] = new EmptyMenuItem("not implementent.");
+            subMenuItems[1] = new EmptyMenuItem("not implementent.");
 
-            while (true)
-            {
-                if (input == 1)
-                {
-                    DisplayAllEmployeesMenuItem displayItem = new DisplayAllEmployeesMenuItem(repo);
-                    displayItem.Execute();
-                }
-                if (input == 2)
-                {
-                    DisplayEmployeeMenuItem displayEmployee = new DisplayEmployeeMenuItem(repo);
-                    displayEmployee.Execute();
-                }
-                if (input == 3)
-                {
-                    CreateEmployeeMenuItem createEmployee = new CreateEmployeeMenuItem(repo);
-                    createEmployee.Execute();
-                }
-                if (input == 4)
-                {
-                    int x = int.Parse(System.Console.ReadLine());
-                    repo.DeleteEmployee(x);
-                }
-                if (input == 5)
-                {
-                    int x = int.Parse(System.Console.ReadLine());
-                    string firstname = System.Console.ReadLine();
-                    string lastname = System.Console.ReadLine();
-                    DateTime date = DateTime.Parse(System.Console.ReadLine());
+            IMenuItem submenu = new MenuGroup("SubMenu", subMenuItems);
 
+            IMenuItem[] menuItems = new IMenuItem[6];
 
+            menuItems[0] = submenu;
+            menuItems[1] = new DisplayAllEmployeesMenuItem(repo);
+            menuItems[2] = new DisplayEmployeeMenuItem(repo);
+            menuItems[3] = new CreateEmployeeMenuItem(repo);
+            menuItems[4] = new DeleteEmployeeMenuItem(repo);
+            menuItems[5] = new UpdateEmployeeMenuItem(repo);
 
-                    Employee emp = new Employee();
-                    emp.FirstName = firstname;
-                    emp.LastName = lastname;
-                    emp.EmployeeID = x;
-                    repo.UpdateEmployee(emp);
-                }               
-                if (input == 6)
-                {
-                    ExitMenuItem exitmenu = new ExitMenuItem();
-                    exitmenu.Execute();
-                }
-                DisplayMenu();
-                input = int.Parse(System.Console.ReadLine());              
-            }               
-        }
-        public static void DisplayMenu()
-        {
-            System.Console.WriteLine("1. DisplayAllEmployee");
-            System.Console.WriteLine("2. DisplayEmployee");
-            System.Console.WriteLine("3. CreateEmpleyee");
-            System.Console.WriteLine("4. DeleteEmployee");
-            System.Console.WriteLine("5. UpdateEmployee");
-            System.Console.WriteLine("6. Exit");
+            IMenuItem mainMenu = new MenuGroup("SubMenu", menuItems);
+            mainMenu.Execute();
         }
     }
 }

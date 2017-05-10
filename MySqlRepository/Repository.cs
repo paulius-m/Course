@@ -11,7 +11,45 @@ using Dapper;
 
 namespace MySqlRepository
 {
-    public class Repository
+    public interface IRepository
+    {
+        void DisplayAllEmployees();
+        void DisplayEmployee(int Id);
+        void CreateEmployee(string FirstName, string LastName, DateTime BirthDate, DateTime HireDate);
+        void DeleteEmployee(int Id);
+        void UpdateEmployee(Employee emp);
+    }
+
+    public class FakeRepository : IRepository
+    {
+        public void CreateEmployee(string FirstName, string LastName, DateTime BirthDate, DateTime HireDate)
+        {
+            Console.WriteLine("FAKE!");
+        }
+
+        public void DeleteEmployee(int Id)
+        {
+            Console.WriteLine("FAKE!");
+        }
+
+        public void DisplayAllEmployees()
+        {
+            Console.WriteLine("FAKE!");
+        }
+
+        public void DisplayEmployee(int Id)
+        {
+            Console.WriteLine("FAKE!");
+        }
+
+        public void UpdateEmployee(Employee emp)
+        {
+            Console.WriteLine("FAKE!");
+        }
+    }
+
+
+    public class Repository : IRepository
     {
         private DbConnection dbconnection;
 
@@ -19,8 +57,6 @@ namespace MySqlRepository
         {
             dbconnection = GetConnection();
         }
-
-       
 
         private DbConnection GetConnection()
         {
