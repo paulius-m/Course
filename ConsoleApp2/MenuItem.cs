@@ -7,24 +7,21 @@ using MySqlRepository;
 
 namespace ConsoleApp1
 {
-    public abstract class MenuItem
+    interface IMenuItem
     {
-        public MenuItem()
-        {
-            
-        }
-        public abstract void Execute();
-        
+        void Execute();
     }
-    public abstract class RepositoryMenuItem : MenuItem 
+
+    public abstract class RepositoryMenuItem : IMenuItem 
     {
         protected Repository repo;
         public RepositoryMenuItem(Repository pifas)
         {
             repo = pifas;
         }
+
+        public abstract void Execute();
     }
-     
     public class DisplayAllEmployeesMenuItem : RepositoryMenuItem
     {       
 
@@ -66,11 +63,9 @@ namespace ConsoleApp1
             repo.CreateEmployee(firstname, lastname, birthdate, hiredate);
         }
     }
-
-
-    public class ExitMenuItem : MenuItem
+    public class ExitMenuItem : IMenuItem
     {
-        public override void Execute()
+        public void Execute()
         {
             Environment.Exit(0);
         }
