@@ -11,6 +11,7 @@ namespace ConsoleApp1
     {
         public MenuItem()
         {
+            
         }
         public abstract void Execute();
         
@@ -23,8 +24,8 @@ namespace ConsoleApp1
             repo = pifas;
         }
     }
-
-   public class DisplayAllEmployeesMenuItem : RepositoryMenuItem
+     
+    public class DisplayAllEmployeesMenuItem : RepositoryMenuItem
     {       
 
         public DisplayAllEmployeesMenuItem(Repository pifas) : base (pifas)
@@ -50,6 +51,23 @@ namespace ConsoleApp1
             repo.DisplayEmployee(x);            
         }
     }
+    public class CreateEmployeeMenuItem : RepositoryMenuItem
+    {
+        public CreateEmployeeMenuItem(Repository pifas) : base(pifas)
+        {
+        }
+
+        public override void Execute()
+        {
+            string firstname = System.Console.ReadLine();
+            string lastname = System.Console.ReadLine();
+            DateTime birthdate = DateTime.Parse(System.Console.ReadLine());
+            DateTime hiredate = DateTime.Parse(System.Console.ReadLine());
+            repo.CreateEmployee(firstname, lastname, birthdate, hiredate);
+        }
+    }
+
+
     public class ExitMenuItem : MenuItem
     {
         public override void Execute()

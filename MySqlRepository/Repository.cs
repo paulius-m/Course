@@ -54,7 +54,7 @@ namespace MySqlRepository
         {
             List<Employee> allemployees1 = dbconnection
                         .Query<Employee>(
-                            "SELECT EmployeeID, Firstname, LastName " +
+                            "SELECT EmployeeID, Firstname, LastName, BirthDate, HireDate " +
                             "FROM Employees " +
                             "WHERE EmployeeId = @Id",
                         new { Id = Id } ).AsList();
@@ -64,22 +64,32 @@ namespace MySqlRepository
                 System.Console.WriteLine(
                     allemployees1[0].EmployeeID + " " +
                     allemployees1[0].FirstName + " " +
-                    allemployees1[0].LastName);
+                    allemployees1[0].LastName + " " +
+                    allemployees1[0].BirthDate.ToShortDateString() + " " +
+                    allemployees1[0].HireDate.ToShortDateString());
             }
         }
 
-        public void CreateEmployee(string FirstName, string LastName)
+        public void CreateEmployee(string FirstName, string LastName, DateTime BirthDate, DateTime HireDate)
         {
             string Notes = "Irasas";
 
-            string processQuery = "INSERT INTO Employees (FirstName, LastName, Notes) " +
-                                  "VALUES (@FirstName1, @LastName1, @Notes1)";
-            dbconnection.Execute(processQuery, new { FirstName1 = FirstName, LastName1 = LastName, Notes1 = Notes }); // Notes reikalingas nes nuturi Defaul reiksmes
+            string processQuery = "INSERT INTO Employees (FirstName, LastName, BirthDate, HireDate, Notes) " +
+                                  "VALUES (@FirstName1, @LastName1, @BirthDate1, @HireDate1, @Notes1)";
+            dbconnection.Execute(processQuery, new { FirstName1 = FirstName,
+                                                     LastName1 = LastName,
+                                                     BirthDate1 = BirthDate,
+                                                     HireDate1 = HireDate,
+                                                     Notes1 = Notes }); // Notes reikalingas nes nuturi Defaul reiksmes
         }
 
 
         public void DeleteEmployee(int Id)
         {
+
+            string processTerritories = "DELETE FROM EmployeeTerritories WHERE EmployeeID = @Id1";
+            dbconnection.Execute(processTerritories, new { Id1 = Id });
+
             string processQuery = "DELETE FROM Employees WHERE EmployeeID = @Id1";
             dbconnection.Execute(processQuery, new { Id1 = Id });
         }

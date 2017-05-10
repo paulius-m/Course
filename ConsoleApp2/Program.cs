@@ -20,7 +20,6 @@ namespace ConsoleApp1
                     DisplayAllEmployeesMenuItem displayItem = new DisplayAllEmployeesMenuItem(repo);
                     displayItem.Execute();
                 }
-
                 if (input == 2)
                 {
                     DisplayEmployeeMenuItem displayEmployee = new DisplayEmployeeMenuItem(repo);
@@ -28,9 +27,8 @@ namespace ConsoleApp1
                 }
                 if (input == 3)
                 {
-                    string firstname = System.Console.ReadLine();
-                    string lastname = System.Console.ReadLine();
-                    repo.CreateEmployee(firstname, lastname);
+                    CreateEmployeeMenuItem createEmployee = new CreateEmployeeMenuItem(repo);
+                    createEmployee.Execute();
                 }
                 if (input == 4)
                 {
