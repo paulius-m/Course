@@ -13,40 +13,14 @@ namespace MySqlRepository
 {
     public interface IRepository
     {
-        void DisplayAllEmployees();
+        List<Employee> DisplayAllEmployees();
         void DisplayEmployee(int Id);
         void CreateEmployee(string FirstName, string LastName, DateTime BirthDate, DateTime HireDate);
         void DeleteEmployee(int Id);
         void UpdateEmployee(Employee emp);
     }
 
-    public class FakeRepository : IRepository
-    {
-        public void CreateEmployee(string FirstName, string LastName, DateTime BirthDate, DateTime HireDate)
-        {
-            Console.WriteLine("FAKE!");
-        }
-
-        public void DeleteEmployee(int Id)
-        {
-            Console.WriteLine("FAKE!");
-        }
-
-        public void DisplayAllEmployees()
-        {
-            Console.WriteLine("FAKE!");
-        }
-
-        public void DisplayEmployee(int Id)
-        {
-            Console.WriteLine("FAKE!");
-        }
-
-        public void UpdateEmployee(Employee emp)
-        {
-            Console.WriteLine("FAKE!");
-        }
-    }
+ 
 
 
     public class Repository : IRepository
@@ -71,7 +45,7 @@ namespace MySqlRepository
             return dbconnection;
         }
 
-        public void DisplayAllEmployees()
+        public List<Employee> DisplayAllEmployees()
         {
             List <Employee> allemployees = dbconnection
                         .Query<Employee>(
@@ -79,11 +53,7 @@ namespace MySqlRepository
                         "FROM Employees;")
                          .AsList();
 
-            for (int i = 0; i < allemployees.Count; i++)
-            {
-                System.Console.WriteLine(allemployees[i].EmployeeID + " " 
-                    + allemployees[i].FirstName + " " + allemployees[i].LastName);
-            }
+            return allemployees;
         }
 
         public void DisplayEmployee(int Id)

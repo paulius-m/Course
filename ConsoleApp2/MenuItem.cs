@@ -37,7 +37,12 @@ namespace ConsoleApp1
 
         public override void Execute()
         {
-            repo.DisplayAllEmployees();
+
+            List<Employee> AllEmployees = repo.DisplayAllEmployees();
+            for (int i = 0; i < AllEmployees.Count; i++)
+            {   
+                System.Console.WriteLine(AllEmployees[i].EmployeeID + " " + AllEmployees[i].FirstName + " " + AllEmployees[i].LastName);
+            }
         }
     }
     public class DisplayEmployeeMenuItem : RepositoryMenuItem
