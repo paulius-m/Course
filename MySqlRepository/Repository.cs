@@ -13,16 +13,13 @@ namespace MySqlRepository
 {
     public interface IRepository
     {
-        List<Employee> DisplayAllEmployees();
-        void DisplayEmployee(int Id);
+        List<Employee> GetAllEmployees();
+        Employee GetEmployee(int Id);
         void CreateEmployee(string FirstName, string LastName, DateTime BirthDate, DateTime HireDate);
         void DeleteEmployee(int Id);
         void UpdateEmployee(Employee emp);
     }
-
- 
-
-
+    
     public class Repository : IRepository
     {
         private DbConnection dbconnection;
@@ -45,7 +42,7 @@ namespace MySqlRepository
             return dbconnection;
         }
 
-        public List<Employee> DisplayAllEmployees()
+        public List<Employee> GetAllEmployees()
         {
             List <Employee> allemployees = dbconnection
                         .Query<Employee>(
@@ -56,7 +53,7 @@ namespace MySqlRepository
             return allemployees;
         }
 
-        public void DisplayEmployee(int Id)
+        public Employee GetEmployee(int Id)
         {
             List<Employee> allemployees1 = dbconnection
                         .Query<Employee>(
@@ -64,16 +61,8 @@ namespace MySqlRepository
                             "FROM Employees " +
                             "WHERE EmployeeId = @Id",
                         new { Id = Id } ).AsList();
-            
-            if (allemployees1.Count > 0)
-            {
-                System.Console.WriteLine(
-                    allemployees1[0].EmployeeID + " " +
-                    allemployees1[0].FirstName + " " +
-                    allemployees1[0].LastName + " " +
-                    allemployees1[0].BirthDate.ToShortDateString() + " " +
-                    allemployees1[0].HireDate.ToShortDateString());
-            }
+
+            return allemployees1.FirstOrDefault();
         }
 
         public void CreateEmployee(string FirstName, string LastName, DateTime BirthDate, DateTime HireDate)

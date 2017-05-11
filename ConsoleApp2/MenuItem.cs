@@ -38,7 +38,7 @@ namespace ConsoleApp1
         public override void Execute()
         {
 
-            List<Employee> AllEmployees = repo.DisplayAllEmployees();
+            List<Employee> AllEmployees = repo.GetAllEmployees();
             for (int i = 0; i < AllEmployees.Count; i++)
             {   
                 System.Console.WriteLine(AllEmployees[i].EmployeeID + " " + AllEmployees[i].FirstName + " " + AllEmployees[i].LastName);
@@ -55,7 +55,18 @@ namespace ConsoleApp1
         {
             System.Console.WriteLine("Įveskite ID");
             int x = int.Parse(System.Console.ReadLine());
-            repo.DisplayEmployee(x);
+
+            Employee employee = repo.GetEmployee(x);
+
+            if (employee != null)
+            {
+                System.Console.WriteLine(
+                    employee.EmployeeID + " " +
+                    employee.FirstName + " " +
+                    employee.LastName + " " +
+                    employee.BirthDate.ToShortDateString() + " " +
+                    employee.HireDate.ToShortDateString());
+            }
         }
     }
     public class CreateEmployeeMenuItem : RepositoryMenuItem
