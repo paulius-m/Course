@@ -46,7 +46,7 @@ namespace MySqlRepository
         {
             List <Employee> allemployees = dbconnection
                         .Query<Employee>(
-                        "SELECT EmployeeID, Firstname, LastName "+
+                        "SELECT EmployeeID, Firstname, LastName, BirthDate, HireDate "+
                         "FROM Employees;")
                          .AsList();
 
