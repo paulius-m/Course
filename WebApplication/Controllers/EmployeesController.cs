@@ -21,5 +21,22 @@ namespace WebApplication.Controllers
         {
             return repo.GetAllEmployees();
         }
+        [HttpGet("{id}")]
+        public Employee Get(int id)
+        {
+            Employee employee = repo.GetEmployee(id);
+            return employee;
+        }
+        [HttpDelete("{id}")]
+        public void Delete(int id)
+        {
+            repo.DeleteEmployee(id);
+
+        }
+        [HttpPost]
+        public void Post(string firstName, string lastName, DateTime birthDate, DateTime hireDate)
+        {
+            repo.CreateEmployee(firstName, lastName, birthDate, hireDate);
+        }
     }
 }
