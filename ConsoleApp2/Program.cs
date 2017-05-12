@@ -7,6 +7,7 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
+
             IRepository repo = new Repository();
 
             IMenuItem[] subMenuItems = new IMenuItem[2];
