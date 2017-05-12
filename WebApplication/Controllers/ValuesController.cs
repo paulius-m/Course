@@ -36,14 +36,14 @@ namespace WebApplication.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
-            
+            values[id] = value;
         }
 
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            values
+            values.RemoveAt(id);
         }
     }
 }
